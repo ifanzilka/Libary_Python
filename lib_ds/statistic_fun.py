@@ -463,6 +463,45 @@ for epoch in range(500):
 # slope, intercept = theta
 
 
+#### Machine Lerning ####
+
+X = TypeVar ('X') # Обобщенный тип для представления точки данн
+
+
+def split_data(data: List[X], prob: float):
+	"""Разбить данные на доли (prob, 1 - prob] """
+	data = data [:] # Сделать мелкую копию,
+	random.shuffle(data) # т. к. shuffle модифицирует список.
+	cut = int(len(data) * prob)
+	return data[:cut], data[cut:]
+
+def accuracy(tp: int, fp: int, fn: int, tn: int) -> float:
+	"""
+	tp Истинное утверждение
+	fp Ложное утверждение
+	fn Ложное отрицание 
+	tn Истинное отрицание
+	"""
+	correct = tp + tn
+	total = tp + fp + fn + tn
+	return correct / total 
+
+
+# В соответствии со стандартной практикой принято обращаться к сочетанию прецизионности (precision) и полноты (recall). При этом здесь прецизионность измеряет
+# то, насколько точными были наши утвердительные предсказания:
+
+def precision(tp: int, fp: int, fn: int, tn: int) -> float:
+	return tp / (tp + fp)
+
+def recall(tp: int, fp: int, fn: int, tn: int) -> float:
+	return tp / (tp + fn)
+
+#В некоторых случаях прецизионность и полнота объединяются в отметку F 1, которая определяется следующим образом:
+def fl_score(tp: int, fp: int, fn: int, tn: int) -> float:
+	p = precision(tp, fp, fn, tn)
+	r = recall(tp, fp, fn, tn)
+	return 2 * p * r / (p + r)
+
 
 
 # ## Mini main from test ##
@@ -501,12 +540,3 @@ for epoch in range(500):
 # 	# print(slope)
 # 	# print("Кф при y")
 # 	# print(intercept)
-
-
-
-
-
-
-# 	print(FONE,end = '')
-# except Exception as e:
-# 	print(e)
