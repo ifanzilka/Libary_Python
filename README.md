@@ -10,3 +10,11 @@ USE:
       st.___Namefun__()
       
 
+OR
+     
+    import os
+
+    os.system('git clone https://github.com/ifanzilka/Libary_Python')
+    import sys
+    sys.path.append('/content/Libary_Python/lib_ds') # ADD Directory with my Lib
+    from  statistic_fun import *
